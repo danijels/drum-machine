@@ -1,0 +1,267 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&family=Quicksand:wght@300&display=swap');
+
+$shade-two: #E8E8E8;
+$shade-three: #BBBFCA;
+$shade-four: #495464;
+$button-color: #14274E;
+
+$main-font: 'Quicksand', sans-serif;
+$display-font: 'Orbitron', sans-serif;
+
+html {
+  padding: env(safe-area-inset);
+}
+
+body {
+  background-color: $shade-four;
+  box-sizing: border-box;
+  font-family: $main-font;
+}
+
+#drum-machine {
+  align-items: center;
+  background-color: $shade-two;
+  border-radius: 0.3em;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  left: 50%;
+  padding: 1em;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);  
+  #controls {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem;
+    width: 11em;
+    .switch-wrapper {
+      align-items: center;      
+      border: 0.1em solid $shade-three;
+      border-radius: 0.3em;
+      display: flex;
+      flex-direction: column;
+      padding: 0.1em 0.3em;
+      .switch {
+        -webkit-appearance: none;
+        appearance: none;
+        background: $shade-three;
+        border: 0.2em solid $shade-four;
+        height: 1.6em;
+        position: relative;     
+        transition: all 0.4s;
+        width: 3.5em;
+        &:focus {
+          outline: 1px solid $shade-three;
+        }
+        &::before {
+          background-color: $button-color;
+          border-radius: 0.1em;
+          content: '';
+          height: 1.2em;
+          position: absolute;
+          top: 0;
+          transition: all 0.4s;
+          width: 1.5em;
+        }
+        &:checked::before {
+          left: 52%;
+        }
+      }// close .switch
+    }//close .switch-wrapper
+    
+    // Credit and thanks to: 
+    // Styling Cross-Browser Compatible Range Inputs with Sass
+    // Github: https://github.com/darlanrod/input-range-sass
+    // Author: Darlan Rod https://github.com/darlanrod
+
+    $track-color: $shade-two !default;
+    $thumb-color: $button-color !default;
+
+    $thumb-radius: 2px !default;
+    $thumb-height: 24px !default;
+    $thumb-width: 10px !default;
+    $thumb-shadow-size: 4px !default;
+    $thumb-shadow-blur: 4px !default;
+    $thumb-shadow-color: rgba(0, 0, 0, .2) !default;
+    $thumb-border-width: 2px !default;
+    $thumb-border-color: #eceff1 !default;
+
+    $track-width: 100% !default;
+    $track-height: 8px !default;
+    $track-shadow-size: 1px !default;
+    $track-shadow-blur: 1px !default;
+    $track-shadow-color: rgba(0, 0, 0, .2) !default;
+    $track-border-width: 2px !default;
+    $track-border-color: $shade-three !default;
+  
+    $track-radius: 5px !default;
+    $contrast: 5% !default;
+  
+    $ie-bottom-track-color: darken($track-color, $contrast) !default;
+
+    @mixin shadow($shadow-size, $shadow-blur, $shadow-color) {
+      box-shadow: $shadow-size $shadow-size $shadow-blur $shadow-color, 0 0   $shadow-size lighten($shadow-color, 5%);
+    }
+
+    @mixin track {
+      cursor: default;
+      height: $track-height;
+      transition: all .2s ease;
+      width: $track-width;
+    }
+
+    @mixin thumb {
+      @include shadow($thumb-shadow-size, $thumb-shadow-blur, $thumb-shadow-color);
+      background: $thumb-color;
+      border: $thumb-border-width solid $thumb-border-color;
+      border-radius: $thumb-radius;
+      box-sizing: border-box;
+      cursor: default;
+      height: $thumb-height;
+      width: $thumb-width;
+    }
+
+    [type='range'] {
+      -webkit-appearance: none;
+      background: transparent;
+      margin: $thumb-height / 2 0;
+      width: $track-width;
+
+      &::-moz-focus-outer {
+        border: 0;
+      }
+
+      &:focus {
+        outline: 0;
+
+        &::-webkit-slider-runnable-track {
+          background: lighten($track-color, $contrast);
+        }
+
+        &::-ms-fill-lower {
+          background: $track-color;
+        }
+
+        &::-ms-fill-upper {
+          background: lighten($track-color, $contrast);
+        }
+      }
+
+      &::-webkit-slider-runnable-track {
+        @include track;
+        @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+        background: $track-color;
+        border: $track-border-width solid $track-border-color;
+        border-radius: $track-radius;
+     }
+
+      &::-webkit-slider-thumb {
+        @include thumb;
+        -webkit-appearance: none;
+        margin-top: ((-$track-border-width * 2 + $track-height) / 2 - $thumb-height / 2);
+      }
+
+      &::-moz-range-track {
+        @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+        @include track;
+        background: $track-color;
+        border: $track-border-width solid $track-border-color;
+        border-radius: $track-radius;
+        height: $track-height / 2;
+      }
+
+      &::-moz-range-thumb {
+        @include thumb;
+      }
+
+      &::-ms-track {
+        @include track;
+        background: transparent;
+        border-color: transparent;
+        border-width: ($thumb-height / 2) 0;
+        color: transparent;
+      }
+
+      &::-ms-fill-lower {
+        @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+        background: $ie-bottom-track-color;
+        border: $track-border-width solid $track-border-color;
+        border-radius: ($track-radius * 2);
+      }
+
+      &::-ms-fill-upper {
+        @include shadow($track-shadow-size, $track-shadow-blur, $track-shadow-color);
+        background: $track-color;
+        border: $track-border-width solid $track-border-color;
+        border-radius: ($track-radius * 2);
+      }
+
+      &::-ms-thumb {
+        @include thumb;
+        margin-top: $track-height / 4;
+     }
+
+      &:disabled {
+        &::-webkit-slider-thumb,
+        &::-moz-range-thumb,
+        &::-ms-thumb,
+        &::-webkit-slider-runnable-track,
+        &::-ms-fill-lower,
+        &::-ms-fill-upper {
+          cursor: not-allowed;
+        }
+      }
+    }//close [type='range']
+  }// close #controls  
+  #keyboard {
+  display: grid;
+  grid-gap: 0.2em;
+  grid-template-columns: 1fr 1fr 1fr;
+  padding: 0.3em;
+  width: 13em;
+    .drum-pad {
+      background-color: $shade-three;
+      border-radius: 0.3em;
+      box-shadow: 0.3em 0.3em 0.3em $button-color;
+      font-weight: bold;
+      line-height: 4em;
+      text-align: center;
+      vertical-align: middle;           
+      &:active {
+        box-shadow: inset 0 0 0.4em;
+        color: $button-color;
+      }
+    }
+    .active {
+      box-shadow: inset 0 0 0.4em;
+      color: $button-color;
+    }
+  }//close .keyboard
+}// close #drum-machine
+//Switching directions explicitly at this breakpoint works better than having flex-wrap: wrap
+//There is no unused space around the descendants of the container when it switches to column
+@media screen and (max-width: 450px) {
+  #drum-machine {
+    flex-direction: column;
+  }
+}
+
+.off {
+  pointer-events: none;
+}
+
+.sound-info {
+  background-color: $shade-three;
+  border: 0.1em solid $shade-four;
+  font-family: $display-font;
+  font-size: 0.8em;
+  line-height: 2em;
+  margin: 0.5em auto;
+  text-align: center;
+  width: 90%;
+  &#display {
+    height: 2em;
+  }
+}
