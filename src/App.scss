@@ -18,6 +18,10 @@ body {
   font-family: $main-font;
 }
 
+button {
+  user-select: none; 
+}
+
 #drum-machine {
   align-items: center;
   background-color: $shade-two;
